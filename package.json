@@ -24,6 +24,7 @@
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
     "merge2": "^1.4.1",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
