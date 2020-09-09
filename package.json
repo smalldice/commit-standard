@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm run link && rimraf dist types && gulp",
     "lint": "eslint src --max-warnings 0",
-    "prettier": "prettier src test --write"
+    "prettier": "prettier src test --write",
+    "test": "jest --bail --coverage"
   },
   "keywords": [],
   "files": [
@@ -15,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^26.0.13",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "@typescript-eslint/typescript-estree": "^4.0.1",
@@ -24,10 +26,12 @@
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "lint-staged": "^10.3.0",
     "merge2": "^1.4.1",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
+    "ts-jest": "^26.3.0",
     "typescript": "^4.0.2"
   },
   "config": {
@@ -39,5 +43,12 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint",
+      "npm run prettier",
+      "git add"
+    ]
   }
 }

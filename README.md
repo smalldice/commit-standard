@@ -4,7 +4,7 @@
 
 #### 搭建流程
 
-step1. Commitizen
+##### step1. Commitizen
 
 packages:
 
@@ -18,11 +18,7 @@ packages:
 代码提交之前会通过 husky 配合 git hook 进行提交信息校验，一旦提交信息不符合 Angular 规范，则提交会失败
 执行 npm run changelog 会在根目录下自动生成 CHANGELOG.md 版本日志
 
-`
-
-````
-
-step2. Typescript
+##### step2. Typescript
 
 ```js
 ;`TypeScript 背景
@@ -32,9 +28,9 @@ Webpack 主要用于页面应用的模块化构建，使用 Webpack 构建会增
 Rollup 是一个构建工具库非常不错的轻量选择，它持有的 Tree Shaking 以及构建 ES Module 的特性使得它被 tsdx、microbundle 甚至 Vue 等广泛使用。
 Babel 对于 TypeScript 可使用 @babel/preset-typescript 去除 TypeScript 类型标记，但是不做类型编译检查，更多关于 Babel 对于 TypeScript 支持的限制可查看 @babel/plugin-transform-typescript - Caveats 或 Babel 7 or TypeScript。
 Gulp 是一个非常轻量的构建工具，并且也是 TypeScript 官方推荐的构建工具，具体可查看 TypeScript - Building，简单的 Gulp 配置可查看 TypeScript 中文网 - Gulp。`
-````
+```
 
-step3. eslint
+##### step3. eslint
 
 1. why eslint?
 
@@ -58,7 +54,7 @@ extends: [ ... ]：在 ESLint 中使用共享规则配置，其中 eslint:recomm
 }
 ```
 
-step4 lint-staged
+##### step4 lint-staged
 
 在 Git Commit Message 中使用了 commitlint 工具配合 husky 可以防止生成不规范的 Git Commit Message，从而阻止用户进行不规范的 Git 代码提交，其原理就是监听了 Git Hook 的执行脚本（会在特定的 Git 执行命令诸如 commit、push、merge 等触发之前或之后执行相应的脚本钩子）。Git Hook 其实是进行项目约束非常好用的工具，它的作用包括但不限于：
 
@@ -68,3 +64,23 @@ Prettier 自动格式化（类似的还包括 Style 样式格式等）
 代码稳定性提交，提交之前确保测试用例全部通过
 发送邮件通知
 CI 集成（服务端钩子）
+
+##### step5 测试
+
+测试背景
+
+如果对于测试的概念和框架不是特别清楚，这里推荐一些可查看的文章：
+
+JavaScript 程序测试 - 全面的测试基础知识
+
+New to front-end testing? Start from the top of the pyramid! - 重点可以了解一下测试金字塔和测试置信度
+
+[译] JavaScript 单元测试框架：Jasmine, Mocha, AVA, Tape 和 Jest 的比较 - 单元测试框架对比中文版（2018）
+
+JavaScript unit testing frameworks in 2020: A comparison - 单元测试框架对比英文版（2020）
+
+除此之外，如果想了解一些额外的测试技巧，这里推荐一些社区的最佳实践：
+
+javascript-testing-best-practices
+
+ui-testing-best-practices
