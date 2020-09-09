@@ -92,3 +92,14 @@ coverage 主要用于在当前根目录下生成 coverage 代码的测试覆盖�
 
 <div style="background-color: gray;border-left: 2px solid pink;padding: 20px">
 <span style="color: purple;">「温馨提示」</span>：Jest CLI Options 中的 findRelatedTests 可用于配合 pre-commit 钩子去运行最少量的单元测试用例，可配合 lint-staged 实现类似于 ESLint 的作用，更多细节可查看 lint-staged - Use environment variables with linting commands。</div>
+
+##### step6 npm scripts hooks
+
+```json
+"lint": "eslint src test --max-warnings 0",
+"test": "jest --bail --coverage",
+"build": "npm run lint && npm run prettier && npm run test && rimraf dist types && gulp",
+"changelog": "rimraf CHANGELOG.md && conventional-changelog -p angular -i CHANGELOG.md -s"
+```
+
+此时执行 npm run build 会先执行 npm run prebuild
