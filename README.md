@@ -84,3 +84,11 @@ JavaScript unit testing frameworks in 2020: A comparison - 单元测试框架对
 javascript-testing-best-practices
 
 ui-testing-best-practices
+
+```js
+;`bail 的配置作用相对类似于 ESLint 中的 max-warnings，设置为 true 则表明一旦发现单元测试用例错误则停止运行其余测试用例，从而可以防止运行用例过多时需要一直等待用例全部运行完毕的情况。
+coverage 主要用于在当前根目录下生成 coverage 代码的测试覆盖率报告，该报告还可以上传 coveralls 进行 Github 项目的 Badges 显示。`
+```
+
+<div style="background-color: gray;border-left: 2px solid pink;padding: 20px">
+<span style="color: purple;">「温馨提示」</span>：Jest CLI Options 中的 findRelatedTests 可用于配合 pre-commit 钩子去运行最少量的单元测试用例，可配合 lint-staged 实现类似于 ESLint 的作用，更多细节可查看 lint-staged - Use environment variables with linting commands。</div>

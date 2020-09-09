@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run link && rimraf dist types && gulp",
+    "prebuild": "npm run lint && npm run test",
+    "build": "rimraf dist types && gulp",
     "lint": "eslint src --max-warnings 0",
     "prettier": "prettier src test --write",
-    "test": "jest --bail --coverage"
+    "test": "jest --bail --coverage",
+    "changelog": "rimraf CHANGELOG.md && conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [],
   "files": [
@@ -45,9 +47,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts": [
+    "*.ts": [
       "npm run lint",
       "npm run prettier",
+      "npm run changelog",
       "git add"
     ]
   }

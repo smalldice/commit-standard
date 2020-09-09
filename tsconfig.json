@@ -12,6 +12,15 @@
     "forceConsistentCasingInFileNames": true,
     // 报错时不生成输出文件
     "noEmitOnError": true,
-    "typeRoots": ["./types"]
-  }
+    "types": ["./types", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    // 允许编译js
+    "allowJs": true,
+    "outDir": ".",
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules"]
 }
