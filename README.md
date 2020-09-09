@@ -33,3 +33,38 @@ Rollup 是一个构建工具库非常不错的轻量选择，它持有的 Tree S
 Babel 对于 TypeScript 可使用 @babel/preset-typescript 去除 TypeScript 类型标记，但是不做类型编译检查，更多关于 Babel 对于 TypeScript 支持的限制可查看 @babel/plugin-transform-typescript - Caveats 或 Babel 7 or TypeScript。
 Gulp 是一个非常轻量的构建工具，并且也是 TypeScript 官方推荐的构建工具，具体可查看 TypeScript - Building，简单的 Gulp 配置可查看 TypeScript 中文网 - Gulp。`
 ````
+
+step3. eslint
+
+1. why eslint?
+
+TypeScript 的代码检查工具主要有 TSLint 和 ESLint 两种。早期的 TypeScript 项目一般采用 TSLint 进行检查。TSLint 和 TypeScript 采用同样的 AST 格式进行编译，但主要问题是对于 JavaScript 生态的项目支持不够友好，因此 TypeScript 团队在 2019 年宣布全面转向 ESLint（具体可查看 TypeScript 官方仓库的 .eslintrc.json 配置），更多关于转向 ESLint 的原因可查看：
+
+https://medium.com/palantir/tslint-in-2019-1a144c2317a9
+https://github.com/microsoft/TypeScript/issues/30553
+TypeScript 和 ESLint 使用不同的 AST 进行解析，因此为了在 ESLint 中支持 TypeScript 代码检查需要制作额外的自定义解析器（Custom Parsers，ESLint 的自定义解析器功能需要基于 ESTree），目的是为了能够解析 TypeScript 语法并转成与 ESLint 兼容的 AST。@typescript-eslint/parser 在这样的背景下诞生，它会处理所有 ESLint 特定的配置并调用 @typescript-eslint/typescript-estree 生成 ESTree-compatible AST（需要注意不仅仅兼容 ESLint，也能兼容 Prettier）。
+
+2. eslint config
+
+parser: '@typescript-eslint/parser'：使用 ESLint 解析 TypeScript 语法
+plugins: ['@typescript-eslint']：在 ESLint 中加载插件 @typescript-eslint/eslint-plugin，该插件可用于配置 TypeScript 校验规则。
+extends: [ ... ]：在 ESLint 中使用共享规则配置，其中 eslint:recommended 是 ESLint 内置的推荐校验规则配置（也被称作最佳规则实践），plugin:@typescript-eslint/recommended 是类似于 eslint:recommended 的 TypeScript 推荐校验规则配置。
+
+3. eslint in package.json
+
+```json
+"scripts": {
+  "lint": "eslint src",
+}
+```
+
+step4 lint-staged
+
+在 Git Commit Message 中使用了 commitlint 工具配合 husky 可以防止生成不规范的 Git Commit Message，从而阻止用户进行不规范的 Git 代码提交，其原理就是监听了 Git Hook 的执行脚本（会在特定的 Git 执行命令诸如 commit、push、merge 等触发之前或之后执行相应的脚本钩子）。Git Hook 其实是进行项目约束非常好用的工具，它的作用包括但不限于：
+
+Git Commit Message 规范强制统一
+ESLint 规则统一，防止不符合规范的代码提交
+Prettier 自动格式化（类似的还包括 Style 样式格式等）
+代码稳定性提交，提交之前确保测试用例全部通过
+发送邮件通知
+CI 集成（服务端钩子）

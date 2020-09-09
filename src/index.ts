@@ -1,2 +1,5 @@
-const a = 1
-console.log(a)
+import { greet } from './greet'
+
+export default {
+  greet
+}
